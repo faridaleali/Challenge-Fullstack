@@ -1,0 +1,143 @@
+<div class="api-logs-container">
+  <div class="header-section">
+    <mat-card class="header-card">
+      <mat-card-content>
+        <div class="header-content">
+          <div class="title-section">
+            <h2 class="page-title">
+              <mat-icon>list</mat-icon>
+              API Call Logs
+            </h2>
+            <p class="page-subtitle">Monitor API usage and performance metrics</p>
+          </div>
+          
+          <button mat-raised-button 
+                  color="primary" 
+                  (click)="refresh()" 
+                  [disabled]="loading"
+                  class="refresh-button">
+            <mat-icon>refresh</mat-icon>
+            Refresh
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="table-section">
+    <mat-card class="table-card">
+      <mat-card-content class="table-content">
+        <!-- Loading overlay -->
+        <div *ngIf="loading" class="loading-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+          <span class="loading-text">Loading API logs...</span>
+        </div>
+
+        <!-- Data table -->
+        <div class="table-container" [class.loading]="loading">
+          <table mat-table 
+                 [dataSource]="dataSource" 
+                 matSort 
+                 class="api-logs-table">
+
+            <!-- Timestamp Column -->
+            <ng-container matColumnDef="timestamp">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-icon class="column-icon">schedule</mat-icon>
+                Timestamp
+              </th>
+              <td mat-cell *matCellDef="let log" class="timestamp-cell">
+                {{ formatTimestamp(log.timestamp) }}
+              </td>
+            </ng-container>
+
+            <!-- User Name Column -->
+            <ng-container matColumnDef="userName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-icon class="column-icon">person</mat-icon>
+                User
+              </th>
+              <td mat-cell *matCellDef="let log" class="user-cell">
+                {{ log.userName }}
+              </td>
+            </ng-container>
+
+            <!-- HTTP Method Column -->
+            <ng-container matColumnDef="httpMethod">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon class="column-icon">http</mat-icon>
+                Method
+              </th>
+              <td mat-cell *matCellDef="let log" class="method-cell">
+                <span class="method-badge" [ngClass]="getMethodClass(log.httpMethod)">
+                  {{ log.httpMethod }}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Endpoint Column -->
+            <ng-container matColumnDef="endpoint">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon class="column-icon">api</mat-icon>
+                Endpoint
+              </th>
+              <td mat-cell *matCellDef="let log" class="endpoint-cell">
+                <code class="endpoint-code">{{ formatEndpoint(log.endpoint) }}</code>
+              </td>
+            </ng-container>
+
+            <!-- Request Parameters Column -->
+            <ng-container matColumnDef="requestParams">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon class="column-icon">code</mat-icon>
+                Parameters
+              </th>
+              <td mat-cell *matCellDef="let log" class="params-cell">
+                <span class="params-text" [title]="formatRequestParams(log.requestParams)">
+                  {{ formatRequestParams(log.requestParams) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Response Time Column -->
+            <ng-container matColumnDef="responseTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <mat-icon class="column-icon">timer</mat-icon>
+                Response Time
+              </th>
+              <td mat-cell *matCellDef="let log" class="response-time-cell">
+                <span class="response-time-badge" 
+                      [class.slow]="log.responseTime > 1000"
+                      [class.medium]="log.responseTime > 500 && log.responseTime <= 1000"
+                      [class.fast]="log.responseTime <= 500">
+                  {{ formatResponseTime(log.responseTime) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></tr>
+          </table>
+
+          <!-- No data message -->
+          <div *ngIf="!loading && dataSource.data.length === 0" class="no-data">
+            <mat-icon class="no-data-icon">inbox</mat-icon>
+            <h3>No API logs found</h3>
+            <p>There are no API call logs to display at the moment.</p>
+          </div>
+        </div>
+
+        <!-- Paginator -->
+        <mat-paginator
+          [length]="totalElements"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="currentPage"
+          (page)="onPageChange($event)"
+          showFirstLastButtons
+          class="logs-paginator">
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

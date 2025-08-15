@@ -1,0 +1,78 @@
+.toolbar-title {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.marvel-icon {
+  margin-right: 8px;
+  color: #ffd700;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.navigation-links {
+  display: flex;
+  gap: 8px;
+}
+
+.navigation-links button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+}
+
+.username {
+  font-weight: 500;
+}
+
+.user-menu-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 12px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .toolbar-title {
+    font-size: 16px;
+  }
+  
+  .navigation-links {
+    display: none;
+  }
+  
+  .username {
+    display: none;
+  }
+  
+  .user-info mat-icon:first-child {
+    display: none;
+  }
+}
