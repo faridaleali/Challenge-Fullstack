@@ -1,0 +1,105 @@
+<div class="character-detail-container">
+  <div class="character-header">
+    <button mat-icon-button 
+            (click)="onClose()" 
+            class="close-button"
+            title="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+    
+    <div class="character-image-section">
+      <img [src]="character.thumbnailUrl" 
+           [alt]="character.name"
+           class="character-detail-image">
+    </div>
+    
+    <div class="character-info-section">
+      <h2 class="character-title">{{ character.name }}</h2>
+      <p class="character-id">ID: {{ character.id }}</p>
+      
+      <div class="character-description-section">
+        <h3>Description</h3>
+        <p class="character-description" 
+           [class.no-description]="!character.description">
+          {{ character.description || 'No description available for this character.' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="character-stats-section">
+    <h3>Appearances</h3>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <mat-icon class="stat-icon comics-icon">menu_book</mat-icon>
+          <span class="stat-label">Comics</span>
+        </div>
+        <div class="stat-value">{{ character.comics?.length || 0 }}</div>
+        <div class="stat-bar">
+          <div class="stat-fill" 
+               [style.width]="getStatWidth(character.comics?.length || 0)"
+               [style.background-color]="getStatColor(character.comics?.length || 0)">
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <mat-icon class="stat-icon series-icon">tv</mat-icon>
+          <span class="stat-label">Series</span>
+        </div>
+        <div class="stat-value">{{ character.series?.length || 0 }}</div>
+        <div class="stat-bar">
+          <div class="stat-fill" 
+               [style.width]="getStatWidth(character.series?.length || 0)"
+               [style.background-color]="getStatColor(character.series?.length || 0)">
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <mat-icon class="stat-icon stories-icon">auto_stories</mat-icon>
+          <span class="stat-label">Stories</span>
+        </div>
+        <div class="stat-value">{{ character.stories?.length || 0 }}</div>
+        <div class="stat-bar">
+          <div class="stat-fill" 
+               [style.width]="getStatWidth(character.stories?.length || 0)"
+               [style.background-color]="getStatColor(character.stories?.length || 0)">
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <mat-icon class="stat-icon events-icon">event</mat-icon>
+          <span class="stat-label">Events</span>
+        </div>
+        <div class="stat-value">{{ character.events?.length || 0 }}</div>
+        <div class="stat-bar">
+          <div class="stat-fill" 
+               [style.width]="getStatWidth(character.events?.length || 0)"
+               [style.background-color]="getStatColor(character.events?.length || 0)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="character-actions">
+    <button mat-raised-button 
+            color="primary" 
+            (click)="onClose()"
+            class="action-button">
+      <mat-icon>check</mat-icon>
+      Got it
+    </button>
+  </div>
+</div>

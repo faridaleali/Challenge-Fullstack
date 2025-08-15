@@ -1,0 +1,101 @@
+<div class="character-list-container">
+  <div class="search-header">
+    <mat-card class="search-card">
+      <mat-card-content>
+        <div class="search-section">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search Characters</mat-label>
+            <input matInput 
+                   [formControl]="searchControl" 
+                   placeholder="Enter character name...">
+            <mat-icon matPrefix>search</mat-icon>
+            <button mat-icon-button 
+                    matSuffix 
+                    *ngIf="searchControl.value" 
+                    (click)="clearSearch()"
+                    title="Clear search">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          
+          <button mat-raised-button 
+                  color="primary" 
+                  (click)="refresh()" 
+                  [disabled]="loading"
+                  class="refresh-button">
+            <mat-icon>refresh</mat-icon>
+            Refresh
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="results-section">
+    <!-- Loading indicator -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p class="loading-text">Loading characters...</p>
+    </div>
+
+    <!-- No results -->
+    <div *ngIf="!loading && characters.length === 0" class="no-results">
+      <mat-icon class="no-results-icon">search_off</mat-icon>
+      <h3>No characters found</h3>
+      <p *ngIf="searchControl.value">
+        Try adjusting your search criteria or 
+        <button mat-button color="primary" (click)="clearSearch()">clear the search</button>
+      </p>
+      <p *ngIf="!searchControl.value">
+        Unable to load characters. Please try again later.
+      </p>
+    </div>
+
+    <!-- Character cards -->
+    <div *ngIf="!loading && characters.length > 0" class="characters-grid">
+      <mat-card *ngFor="let character of characters" 
+                class="character-card" 
+                (click)="openCharacterDetail(character)"
+                tabindex="0"
+                role="button">
+        <div class="character-image-container">
+          <img [src]="character.thumbnailUrl" 
+               [alt]="character.name" 
+               class="character-image"
+               loading="lazy">
+          <div class="character-overlay">
+            <mat-icon>visibility</mat-icon>
+            <span>View Details</span>
+          </div>
+        </div>
+        
+        <mat-card-content class="character-content">
+          <h3 class="character-name">{{ character.name }}</h3>
+          <p class="character-description" 
+             [title]="character.description || 'No description available'">
+            {{ character.description || 'No description available' }}
+          </p>
+          
+          <div class="character-stats">
+            <div class="stat-item">
+              <mat-icon>menu_book</mat-icon>
+              <span>{{ character.comics?.length || 0 }} Comics</span>
+            </div>
+            <div class="stat-item">
+              <mat-icon>tv</mat-icon>
+              <span>{{ character.series?.length || 0 }} Series</span>
+            </div>
+            <div class="stat-item">
+              <mat-icon>auto_stories</mat-icon>
+              <span>{{ character.stories?.length || 0 }} Stories</span>
+            </div>
+            <div class="stat-item">
+              <mat-icon>event</mat-icon>
+              <span>{{ character.events?.length || 0 }} Events</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

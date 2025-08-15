@@ -1,0 +1,204 @@
+.character-detail-container {
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.character-header {
+  position: relative;
+  padding: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.character-image-section {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.character-detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.character-info-section {
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.character-title {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.character-id {
+  margin: 0 0 24px 0;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.character-description-section h3 {
+  margin: 0 0 12px 0;
+  color: #444;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.character-description {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+  font-size: 16px;
+}
+
+.character-description.no-description {
+  color: #999;
+  font-style: italic;
+}
+
+.character-stats-section {
+  padding: 24px;
+}
+
+.character-stats-section h3 {
+  margin: 0 0 24px 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stat-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.comics-icon { color: #e91e63; }
+.series-icon { color: #2196f3; }
+.stories-icon { color: #ff9800; }
+.events-icon { color: #4caf50; }
+
+.stat-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 16px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.stat-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.character-actions {
+  padding: 24px;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.action-button {
+  padding: 0 32px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .character-title {
+    font-size: 24px;
+  }
+  
+  .character-info-section {
+    padding: 16px;
+  }
+  
+  .character-stats-section {
+    padding: 16px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .character-actions {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .character-image-section {
+    height: 200px;
+  }
+  
+  .character-title {
+    font-size: 20px;
+  }
+  
+  .stat-card {
+    padding: 16px;
+  }
+}
