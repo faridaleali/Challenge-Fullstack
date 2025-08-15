@@ -2,7 +2,7 @@
 
 ## 📋 Descripción
 
-Aplicación fullstack que consume la API de Marvel Comics para mostrar información de personajes. Desarrollada como challenge técnico para Alkemy.
+Aplicación fullstack que consume la API de Marvel Comics para mostrar información de personajes. Desarrollada como challenge técnico.
 
 ## 🏗️ Arquitectura
 
